@@ -1,16 +1,20 @@
 import { useEffect, useState } from "react";
 import "./bootstrap.min (9).css"
-import { Container, Button } from "react-bootstrap"
+import { Container, Button, Navbar, Nav } from "react-bootstrap"
 import db from "./firebase"
 import { onSnapshot, collection, query, where, orderBy } from "firebase/firestore";
 import ChatRoom from "./components/ChatRoom"
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
 import { userContext } from "./context/context"
+import GroupsRoom from "./components/GroupsRoom"
+import HomeScreen from "./screens/HomeScreen"
+import ChatScreen from "./screens/ChatScreen"
+import { BrowserRouter as Router, Route } from "react-router-dom"
+import { LinkContainer } from "react-router-bootstrap"
 
 
+function App({history}) {
 
-function App() {
-  
   const auth = getAuth();
   const provider = new GoogleAuthProvider()
   
@@ -20,6 +24,7 @@ function App() {
     signInWithPopup(auth, provider)
     .then((result) => {
       setUser(result.user)
+      console.log(result.user.uid);
       // ...
     }).catch((error) => {
         console.log(error.message);
@@ -30,26 +35,33 @@ function App() {
   const logout = () => {
     signOut(auth).then(() => {
       setUser(null)
+      history.push("/")
     }).catch((error) => {
       console.log(error.message);
     });
   }
 
   return (
-    <userContext.Provider value={{user, setUser}}>
-      <Container className="App text-center">
-      <h1 className="mt-5 mb-4">Welcome to the new and improved chat app!</h1>
-      
-      {user === null 
-      ? <Button variant="primary" onClick={signInWithFirebase}>Sign up with Google</Button> 
-      : <div>
-          <ChatRoom gid="abc"/>
-          <Button variant="primary" onClick={logout}>Log Out</Button> 
-      </div>
-      } 
-      
-    </Container>
-    </userContext.Provider>
+    <Router>
+      <userContext.Provider value={{user, setUser}}>
+        <header>
+              <Navbar bg="primary"  variant="dark" expand="lg" collapseOnSelect>
+                  <Container>
+                    <Navbar.Brand href="/">MyChat</Navbar.Brand>
+                      {user === null 
+                      ? <Button variant="secondary" onClick={signInWithFirebase}>Sign up with Google</Button> 
+                      : <div>
+                          <LinkContainer to="/"><Button variant="secondary" onClick={logout}>Log Out</Button></LinkContainer> 
+                      </div>
+                      } 
+                  </Container>
+              </Navbar>
+
+          </header>
+          <Route path="/chat/:id" component={ChatScreen} exact/>
+          <Route path="/" component={HomeScreen} exact/>
+      </userContext.Provider>
+    </Router>
   );
 }
 
