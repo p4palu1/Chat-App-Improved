@@ -3,7 +3,6 @@ import "./bootstrap.min (9).css"
 import { Container, Button, Navbar, Nav } from "react-bootstrap"
 import db from "./firebase"
 import { onSnapshot, collection, query, where, orderBy } from "firebase/firestore";
-import ChatRoom from "./components/ChatRoom"
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
 import { userContext } from "./context/context"
 import GroupsRoom from "./components/GroupsRoom"
@@ -49,7 +48,7 @@ function App({history}) {
                   <Container>
                     <Navbar.Brand href="/">MyChat</Navbar.Brand>
                       {user === null 
-                      ? <Button variant="secondary" onClick={signInWithFirebase}>Sign up with Google</Button> 
+                      ? <LinkContainer to="/" ><Button variant="secondary" onClick={signInWithFirebase}>Sign up with Google</Button></LinkContainer> 
                       : <div>
                           <LinkContainer to="/"><Button variant="secondary" onClick={logout}>Log Out</Button></LinkContainer> 
                       </div>

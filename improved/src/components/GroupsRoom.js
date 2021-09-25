@@ -14,8 +14,8 @@ const GroupsRoom = ({history}) => {
         const q = query(collection(db, "groups"))
         
         onSnapshot(q , (querySnapshot) => {
-        setGroups(querySnapshot.docs.map((doc) => doc.data())
-        .filter(group => group.users.includes(user.email) === true))
+        setGroups(querySnapshot.docs.map((doc) => [doc.id, doc.data()])
+        .filter(group => group[1].users.includes(user.email) === true))
         })
     }, [])
     
@@ -26,11 +26,11 @@ const GroupsRoom = ({history}) => {
             <h1 className="mb-4">Click a chat group to begin chatting...</h1>
             {
                 groups.map(group => 
-                    <LinkContainer to={`/chat/${group.name}`}>
-                        <Card className="" >
-                            <Row>
+                    <LinkContainer to={`/chat/${group[0]}`} key={group[0]}>
+                        <Card classname="group-card">
+                            <Row >
                                     <Card.Body>
-                                        <strong>{group.name}</strong> participants: {group.users.length}
+                                        <strong>{group[1].name}</strong> participants: {group[1].users.length}
                                     </Card.Body>
                             </Row>
                         </Card>

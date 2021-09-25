@@ -2,7 +2,6 @@ import { useEffect, useState, useContext } from "react";
 import { Container, Button, Navbar, Nav } from "react-bootstrap"
 import db from "../firebase"
 import { onSnapshot, collection, query, where, orderBy } from "firebase/firestore";
-import ChatRoom from "../components/ChatRoom"
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
 import { userContext } from "../context/context"
 import GroupsRoom from "../components/GroupsRoom"
