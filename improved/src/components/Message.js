@@ -1,14 +1,24 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import { Image } from "react-bootstrap"
+import { userContext } from "../context/context"
 
-const Message = ({text, createdAt}) => {
+const Message = ({msg}) => {
 
-    const [date, setDate] = useState(new Date(createdAt.seconds * 1000))
+    const { user, setUser } = useContext(userContext)
+
     return (
-        <div>
-                <span><strong>{text} </strong></span>
-                <span> {date.toDateString()}</span>
-                
-        </div>
+        <>
+        { user.displayName === msg.displayName 
+        ?   <div className="message bg-secondary rounded text-black-50 w-50 m-2 p-2 align-self-end text-end">
+                <span className="m-1"><strong> {msg.displayName}</strong></span><Image src={msg.photoUrl} width="35px" roundedCircle />
+                <div className="mr-4 mt-1 text-black"> {msg.text}</div>                
+            </div> 
+        :   <div className="message bg-light rounded text-black-50 w-50 m-2 p-2">
+                <Image src={msg.photoUrl} width="35px" roundedCircle /><span className="m-1"><strong> {msg.displayName}</strong></span>
+                <div className="ml-4 mt-1 text-black"> {msg.text}</div>                
+            </div> 
+        }
+        </>
     )
 }
 
