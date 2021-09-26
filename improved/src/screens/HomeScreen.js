@@ -19,9 +19,9 @@ const HomeScreen = ({history}) => {
             <h1>Welcome to MyChat!</h1>
             <br />
             <p>This is a React.js project made by Reem Stamker</p>
-            <p><a href="https://github.com/p4palu1/Chat-App-Improved">Click to view open sourse code on GitHub</a></p>
+            <p><a href="https://github.com/p4palu1/Chat-App-Improved">Click to view open source code on GitHub</a></p>
             <br />
-            <h5>To begin using the chat, click the "Sign up wuth google" button on top</h5>          
+            <h5>To begin using the chat, click the "Sign up with google" button on top</h5>          
           </div>
         )
         : <GroupsRoom />
