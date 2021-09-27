@@ -8,6 +8,7 @@ import { userContext } from "./context/context"
 import GroupsRoom from "./components/GroupsRoom"
 import HomeScreen from "./screens/HomeScreen"
 import ChatScreen from "./screens/ChatScreen"
+import CreateGroupScreen from "./screens/CreateGroupScreen"
 import { BrowserRouter as Router, Route } from "react-router-dom"
 import { LinkContainer } from "react-router-bootstrap"
 
@@ -58,6 +59,7 @@ function App({history}) {
 
           </header>
           <Route path="/chat/:id" component={ChatScreen} exact/>
+          <Route path="/create" component={CreateGroupScreen} exact/>
           <Route path="/" component={HomeScreen} exact/>
       </userContext.Provider>
     </Router>

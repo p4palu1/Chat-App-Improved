@@ -2,9 +2,9 @@ import React, { useEffect, useState, useContext, useRef, useLayoutEffect } from 
 import  db from "../firebase"
 import { doc, addDoc, Timestamp, onSnapshot, collection, query, where, orderBy, limit } from "firebase/firestore";
 import { userContext } from "../context/context"
-import { Row, Col, Card, Form, Button } from "react-bootstrap"
+import { Row, Col, Card, Form, Button} from "react-bootstrap"
 import Message from "../components/Message"
-
+import { LinkContainer } from "react-router-bootstrap"
 
 const ChatScreen = ({match, history}) => {
 
@@ -56,6 +56,9 @@ const ChatScreen = ({match, history}) => {
 
     return (
         <div>
+            <LinkContainer to="/">
+                <Button className="rounded-0 m-2">Go Back</Button>
+            </LinkContainer>
             <div className="d-flex flex-column justify-content-center">
                 {(user === null || inGroup === false) 
                 ? <> Cannot access this page!</> 

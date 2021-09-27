@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react"
 import  db from "../firebase"
 import { onSnapshot, collection, query, where, orderBy } from "firebase/firestore";
 import { userContext } from "../context/context"
-import { Row, Col, Card} from "react-bootstrap"
+import { Row, Col, Card, Button } from "react-bootstrap"
 import { withRouter } from 'react-router-dom'; 
 import { LinkContainer } from "react-router-bootstrap"
 
@@ -24,6 +24,9 @@ const GroupsRoom = ({history}) => {
     return (
         <>
             <h1 className="mb-4">Click a chat group to begin chatting...</h1>
+            <LinkContainer to="/create" className="mb-4">
+                <Button> + Create a group</Button>    
+            </LinkContainer>
             {
                 groups.map(group => 
                     <LinkContainer to={`/chat/${group[0]}`} key={group[0]}>
